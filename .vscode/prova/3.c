@@ -16,8 +16,34 @@ Observação: Para calcular um percentual A de um valor B, faça B*A/100
 Rejeite valores de entrada inválidos*/
 
 int main(){
-    int sl = 0, c, d, sq;
-    printf(" 1. Saldo\n 2. Compra no crédito\n 3. Depósito\n 4. Saque\n 5. Sair\n");
+    int sl = 0, c, d, sq, o;
+    printf (" 1. Saldo\n 2. Compra no crédito\n 3. Depósito\n 4. Saque\n 5. Sair\n");
+    printf ("Digite seu saldo: ");
+    scanf ("%d", &sl);
+    do
+    {
+        printf ("Selecione uma opcao: ");
+        scanf ("%d", o);
+
+        switch (o){
+        case 1:
+            printf ("Seu saldo e :%d", sl);
+            break;
+
+        case 2:
+            printf ("Digite o valor da compra: ");
+            scanf ("%d", &c);
+            for (c; c > sl;){
+                printf ("Saldo insuficiente");
+            }
+            if ()
+            break;
+        
+        default:
+            break;
+        }
+    } while (sl >= 0);
+    
 
     
 }
