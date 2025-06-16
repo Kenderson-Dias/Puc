@@ -11,11 +11,13 @@ respectivos elementos do primeiro arranjo.*/
 int main() {
     float vetor[5], vetor2[5];
 
+    // O usuario prenche o vetor
     for (int i = 0; i < 5; i++) {
         printf("Digite um numero: ");
         scanf("%f", &vetor[i]);
     }
 
+    //dobra os valores e guarda em outro vetor
     for (int j = 0; j <5; j++){
         vetor2[j] = vetor[j] * 2;
         printf("%.2f x 2 = %.2f\n", vetor[j], vetor2[j]);

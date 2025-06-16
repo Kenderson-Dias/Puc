@@ -13,27 +13,47 @@ procedimentos.*/
 
 void preencheNotas(int tam, int vetor[]) {
     for (int i = 0; i < tam; i++) {
-        printf("Digite a nota:");
-        scanf("%d", vetor[i]);
+        printf("Digite a nota: ");
+        scanf("%d", &vetor[i]);
 
     }
 
-    // return
 }
 
 void calculaMedia(int tam, int vetor[]) {
-    for (int i = 0; i < tam; i++) {
-          
-    }
-    
+    float med=0;
+    int i=0;
 
+    for (i = 0; i < tam; i++) {
+        med += vetor[i];
+    }
+    med /= tam;
+
+    //Mostra a media
+    printf("A media da turma e: %.2f\n", med);
+
+    //Mostra quantos alunos tiveram nota acima da media
+    for (i = 0; i < tam; i++) {
+        if (vetor[i] > med) {
+            printf("Aluno %d obteve nota acima da media\n", i + 1);
+        }
+    }
 }
 
 int main() {
-    int v[10], t[10];
+    int v[10];
+    
+    //Chama o procedimento para prencher os vetores
     preencheNotas(10, v);
 
-    calculaMedia(10, t);
+    //Chama o procedimento para calcular a media
+    calculaMedia(10, v);
+
+    //Exibe os vetores criados
+    printf("Notas: ");
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", v[i]);
+    }
 
     return 0;
 }

@@ -2,7 +2,7 @@
 #include <math.h>
 #include <stdio.h>
 
-/*mplementar um algoritmo que solicita um número inteiro ao usuário, calcule e mostre o seu
+/*Implementar um algoritmo que solicita um número inteiro ao usuário, calcule e mostre o seu
 fatorial.*/
 
 int main(){
