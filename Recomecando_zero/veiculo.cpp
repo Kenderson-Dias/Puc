@@ -5,7 +5,7 @@
 // Construtor parametrizado
 Veiculo::Veiculo(const char *p, const char *m, const char *la) {
     if (strlen(p) > 0 && strlen(p) < 8) {
-        strcpy(placa, p);
+        strcpy(placa, p);   
     } else {
         strcpy(placa, "0000000");
     }
