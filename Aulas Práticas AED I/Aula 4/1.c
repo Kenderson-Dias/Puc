@@ -8,7 +8,7 @@ int main() {
     printf("Digite um numero inteiro: ");
     scanf("%d", &n);
 
-    n >= 0 ? mod = n: mod = -n;
+    mod >= 0 ? n: -n;
     printf("%d", mod);
 
     return 0;

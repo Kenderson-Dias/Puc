@@ -12,21 +12,21 @@ int main() {
     menor = a;
 
     if(b > maior)
-     maior = b;
+        maior = b;
     if(c > maior)
-     maior = c;
+        maior = c;
     if(d > maior)
-     maior = d;
+        maior = d;
     if(e > maior)
-     maior = e;
+        maior = e;
     if(b < menor)
-     menor = b;
+        menor = b;
     if(c < menor)
-     menor = c;
+        menor = c;
     if(d < menor)
-     menor = d;
+        menor = d;
     if(e < menor)
-     menor = e;    
+        menor = e;    
     res = maior - menor;
     printf("A amplitude total e: %d\n", res);
 }

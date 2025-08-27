@@ -14,7 +14,7 @@ int main() {
     scanf("%d %d %d", &a, &b, &c);
     fflush(stdin);
     
-    if (a == 0 || b == 0){
+    if (a <= 0 || b <= 0){
         printf("Valor invalido");
 
     } else if(c % a == 0 && c % b == 0){
@@ -24,7 +24,7 @@ int main() {
         printf("Divisivel por um");
 
     } else {
-        printf("Nao divisivel");
+        printf("Nao divisivel por nenhum");
     }
 
     return 0;
