@@ -14,30 +14,35 @@ int main() {
     scanf("%c", &p);
     printf("Insira o tempo de queda (Em milisegundos): ");
     scanf("%f", &t);
-    switch (p) {
-        case 'T':
-            g = 9.807;
-            v = g * t;
-            v/= 1000;
-            printf("%.3fm/s",v);
-            break;
-        case 'V':
-            g = 8.87;
-            v = g * t;
-            v/= 1000;
-            printf("%.3fm/s",v);
-            break;
 
-        case 'M':
-            g = 3.7;
-            v = g * t;
-            v/= 1000;
-            printf("%.3fm/s",v);
-            break;
+    if (t > 0) {
+        switch (p) {
+            case 'T':
+                g = 9.807;
+                v = g * t;
+                v/= 1000;
+                printf("velocidade = %.3fm/s",v);
+                break;
+            case 'V':
+                g = 8.87;
+                v = g * t;
+                v/= 1000;
+                printf("velocidade = %.3fm/s",v);
+                break;
 
-        default:
-            printf("Digito incorreto, lembre-se que a inicial do planeta deve ser maiuscula");
-            break;
+            case 'M':
+                g = 3.7;
+                v = g * t;
+                v/= 1000;
+                printf("velocidade = %.3fm/s",v);
+                break;
+
+            default:
+                printf("Digito incorreto, lembre-se que a inicial do planeta deve ser maiuscula");
+                break;
+        }
+    } else {
+        printf("ERRO 0194\nInsira um valor maior que 0 para o tempo");
     }
     return 0;
 }
