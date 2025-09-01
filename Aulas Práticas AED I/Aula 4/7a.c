@@ -8,6 +8,7 @@ int main() {
     int i = 100;
     while (i <= 110) {
         printf("%d\n", i);
+        i++;
     }
 
     return 0;
