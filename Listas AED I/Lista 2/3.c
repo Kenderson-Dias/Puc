@@ -1,20 +1,11 @@
-<<<<<<< HEAD
 #include <stdio.h>
 #include <stdlib.h>
-=======
-#include <stdlib.h>
-#include <stdio.h>
->>>>>>> 9c1f5081f0fde7f2cb2e2f64fa1e816c9a50f889
 
 /*Uma empresa vende o mesmo produto para quatro estados diferentes. Cada estado possui
 uma alíquota de imposto sobre o produto. Escreva um programa em que o usuário insira o valor
 e a primeira letra do estado de destino do produto. O programa deve retornar o preço final
 (produto + imposto). Se o estado não for válido, o sistema deve mostrar uma mensagem de erro.*/
 
-<<<<<<< HEAD
-int main(){
-
-=======
 int main() {
     char destino;
     float produto, preco;
@@ -41,5 +32,4 @@ int main() {
     }
 
     return 0;
->>>>>>> 9c1f5081f0fde7f2cb2e2f64fa1e816c9a50f889
 }

@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-#include <stdio.h>
-#include <stdlib.h>
-
-/*Escreva um programa que calcule a amplitude total (AT) de uma série de cinco números. A
-amplitude e definida pela diferença entre o menor e o maior número.
-AT = maior valor – menor valor.*/
-
-int main(){
-
-=======
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -40,5 +29,4 @@ int main() {
         menor = e;    
     res = maior - menor;
     printf("A amplitude total e: %d\n", res);
->>>>>>> 9c1f5081f0fde7f2cb2e2f64fa1e816c9a50f889
 }

@@ -1,13 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-<<<<<<< HEAD
-
-/* Escreva um programa que leia quatro números inteiros positivos (w, x, y e z) e efetue o cálculo
-de uma das seguintes médias de acordo com o valor de w conforme a tabela a seguir*/
-
-int main(){
-
-=======
 #include <math.h>
 
 /*Escreva um programa que leia quatro números inteiros positivos (w, x, y e z) e efetue o cálculo
@@ -43,5 +35,4 @@ int main() {
             break;
     }
     return 0;
->>>>>>> 9c1f5081f0fde7f2cb2e2f64fa1e816c9a50f889
 }

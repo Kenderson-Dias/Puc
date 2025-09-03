@@ -1,19 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-<<<<<<< HEAD
-/*screva um programa que calcule a velocidade de queda de um corpo em função do tempo,
-=======
 /*Escreva um programa que calcule a velocidade de queda de um corpo em função do tempo,
->>>>>>> 9c1f5081f0fde7f2cb2e2f64fa1e816c9a50f889
 partindo da velocidade zero, considerando a gravidade de diferentes planetas conforme a tabela
 a seguir. Seu programa deve receber do usuário o tempo (em milissegundos) de queda e um
 caractere indicando o planeta em que a queda ocorreu*/
 
-<<<<<<< HEAD
-int main(){
-
-=======
 int main() {
     char p;
     float t, v, g;
@@ -53,5 +45,4 @@ int main() {
         printf("ERRO 0194\nInsira um valor maior que 0 para o tempo");
     }
     return 0;
->>>>>>> 9c1f5081f0fde7f2cb2e2f64fa1e816c9a50f889
 }

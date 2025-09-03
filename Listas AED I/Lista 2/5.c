@@ -6,12 +6,6 @@ matemáticas (1. soma, 2. subtração, 3. multiplicação, 4. divisão e 5. mód
 uma das opções (1 a 5), e o seu programa recebe dois valores numéricos do usuário e realiza a
 operação escolhida (somente a escolhida), mostrando o resultado. Caso a opção digitada seja
 inválida (ou seja, menor que 1 ou maior que 5) ou os valores recebidos sejam inválidos, seu
-<<<<<<< HEAD
-programa deve mostrar uma mensagem indicando incorreção na entrada de dados.*/
-
-int main(){
-
-=======
 programa deve mostrar uma mensagem indicando incorreção na entrada de dados*/
 
 int main() {
@@ -47,5 +41,4 @@ int main() {
             break;
     }
     return 0;
->>>>>>> 9c1f5081f0fde7f2cb2e2f64fa1e816c9a50f889
 }

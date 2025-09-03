@@ -1,13 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-<<<<<<< HEAD
-
-/*Escreva um programa que calcule as raízes da equação do 2º grau (ax² + bx + c); os valores de
-a, b e c são fornecidos pelo usuário.*/
-
-int main(){
-
-=======
 #include <math.h>
 
 /*Escreva um programa que calcule as raízes da equação do 2º grau (ax² + bx + c); os valores de
@@ -37,5 +29,4 @@ int main() {
     }
 
     return 0;
->>>>>>> 9c1f5081f0fde7f2cb2e2f64fa1e816c9a50f889
 }
