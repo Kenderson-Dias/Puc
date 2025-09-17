@@ -6,19 +6,28 @@
 masculina, feminina e geral*/
 
 int main(){
-    float m, h, med1 = 0, med2 = 0;
-    for(int i = 0; i < 5; i++) {
-        printf("Insira a altura das mulheres: ");
-        scanf("%f", &m);
-        med1 += m;
+    float altura, somaH = 0, somaM = 0, mediaH, mediaM, mediafinal;
+    int i;
+
+    for(i = 1; i <= 5; i++) {
+        printf("Digite a altura do homem %d: ", i);
+        scanf("%f", &altura);
+        somaH += altura;
     }
-    for(int i = 0; i < 5; i++) {
-        printf("Insira a altura dos homens: ");
-        scanf("%f", &h);
-        med2 += h;
+
+    for(i = 1; i <= 5; i++) {
+        printf("Digite a altura da mulher %d: ", i);
+        scanf("%f", &altura);
+        somaM += altura;
     }
-    med1 = med1 / 5;
-    med2 = med2 /5;
-    float med3 = (med1 + med2) / 2;
-    printf("Media masculina = %.2f\nMedia feminina = %.2f\nMedia geral %.2f", med2, med1, med3);
+
+    mediaH = somaH / 5;
+    mediaM = somaM / 5;
+    mediafinal = (somaH + somaM) / 10;
+
+    printf("Media de altura dos homens: %.2f\n", mediaH);
+    printf("Media de altura das mulheres: %.2f\n", mediaM);
+    printf("Media geral de altura: %.2f\n", mediafinal);
+
+    return 0;
 }

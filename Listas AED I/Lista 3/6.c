@@ -6,14 +6,16 @@
 Ex.: Se n = 10, imprimir os 10 primeiros números da sequência de Fibonacci*/
 
 int main(){
-    int n1 = 0, n2 = 1, cont, fib;
-    printf("Insira quantos numeros quer mostrar: ");
-    scanf("%d", &cont);
-    for (int i = 1; i <= cont; i++) {
-        fib = n1 + n2;
-        n1 = n2;
-        n2 = fib;
-        printf("%d\n", fib);
+    int n, a = 0, b = 1, fib;
+    printf("Digite quantos termos da serie de Fibonacci deseja: ");
+    scanf("%d", &n);
+
+    for(int i = 0; i < n; i++) {
+        printf("%d ", a);
+        fib = a + b;
+        a = b;
+        b = fib;
     }
-    
+    printf("\n");
+    return 0;
 }
