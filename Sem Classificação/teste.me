@@ -1,0 +1,41 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>  // Para tolower()
+
+void contaLetra(char vet[]) {
+    int letras[26] = {0}; // Vetor para 'a' a 'z'
+    int i = 0;
+
+    // Conta a frequência das letras, ignorando maiúsculas/minúsculas e espaços
+    while (vet[i] != '\0') {
+        if (isalpha(vet[i])) { // Verifica se é letra
+            char c = tolower(vet[i]); // Transforma em minúscula
+            letras[c - 'a']++; // Incrementa no índice correspondente (0 a 25)
+        }
+        i++;
+    }
+
+    // Encontra a letra com maior frequência
+    int max = 0;
+    int indice = 0;
+    for (i = 0; i < 26; i++) {
+        if (letras[i] > max) {
+            max = letras[i];
+            indice = i;
+        }
+    }
+
+    printf("\nA letra mais usada foi '%c', aparecendo %d vezes.\n", indice + 'a', max);
+}
+
+int main() {
+    char texto[500];
+
+    printf("---Digite seu texto---\n");
+    fgets(texto, sizeof(texto), stdin); // Lê uma linha inteira (com espaços)
+
+    contaLetra(texto);
+
+    return 0;
+}
