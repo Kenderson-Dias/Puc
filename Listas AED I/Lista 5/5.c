@@ -7,6 +7,10 @@ https://www.pucminas.br) e verifica se ela começa com "http://" ou "https://". 
 a função deve retornar o ”corpo” principal da URL (neste caso, www.pucminas.br). Caso contrário,
 deve retornar uma string vazia. Implemente um main que teste a função e imprima o resultado*/
 
+/*Descrição: o procedimento retorna o corpo de uma url valida
+Entrada: url (const char*), corpo (char*)
+Saida: 
+*/
 void corpo_url(const char *url, char *corpo) {
     if (strncmp(url, "http://", 7) == 0) {
         strcpy(corpo, url + 7);

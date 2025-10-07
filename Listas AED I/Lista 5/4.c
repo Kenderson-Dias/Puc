@@ -9,6 +9,11 @@ Crie uma fun ̧c ̃ao que valide se o nome de usu ́ario atende aos seguintes cr
 • Deve obrigatoriamente come ̧car com uma letra.
 A fun ̧c ̃ao deve retornar 1 se o nome for v ́alido e 0 caso contr ́ario. Imprima o resultado da valida ̧c ̃ao*/
 
+
+/*Descrição: a função verifica se o nome de usuario escolhido cumpre os requisitos
+Entrada: v[] (char)
+Saida: inteiro
+*/
 int verifica (char v[]){
     if (strlen (v) < 5 || strlen (v) > 15) 
         return 0;

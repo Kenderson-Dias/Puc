@@ -8,7 +8,10 @@ uma fun ̧c ̃ao que receba os dois vetores ordenados e gere um terceiro vetor Z
 os elementos de X e Y mesclados, de forma que Z tamb ́em permane ̧ca ordenado. Exiba o vetor Z
 resultante.*/
 
-
+/*Descrição: o procedimento permite o usuario preencher um vetor em ordem crescente
+Entrada: v[] (inteiro)
+Saida: 
+*/
 void cheio(int v[]){
     printf("Insira os valores em ordem crescente\n");
     for (int i = 0; i < 5; i++) {
@@ -22,6 +25,10 @@ void cheio(int v[]){
     }
 }
 
+/*Descrição: o procedimento coloca os valores dos vetores preenchidos pelo usuario em ordem crescente
+Entrada: x[] (int), y[] (int), z[] (int)
+Saida: 
+*/
 void shaZam(int x[], int y[], int z[]) {
     int i = 0, j = 0, k = 0;
     while (i < 5 && j < 5) {
@@ -37,6 +44,7 @@ void shaZam(int x[], int y[], int z[]) {
     while (j < 5) {
         z[k++] = y[j++];
     }
+    return z;
 }
 
 int main(){

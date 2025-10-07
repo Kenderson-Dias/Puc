@@ -8,6 +8,11 @@ outro procedimento que receba o vetor e a maior nota, calcule e exiba a nota de 
 um percentual em rela ̧c ̃ao `a maior nota (Ex: se a maior nota for 10 e um aluno tirou 7, ele atingiu
 70% da nota m ́axima).*/
 
+
+/*Descrição: o procedimento permite o usuario preencher um vetor
+Entrada: notas (float), tam (inteiro)
+Saida: 
+*/
 void preencheNotas(float notas[], int tam){
     for (int i = 0; i < tam; i++) {
         printf("Insira a %da nota: ", i+1);
@@ -16,6 +21,10 @@ void preencheNotas(float notas[], int tam){
     
 }
 
+/*Descrição: a função encontra a maior nota dentro do vetor
+Entrada: notas (float), tam (inteiro)
+Saida: float
+*/
 float encontraMaiorNota(float notas[], int tam){
     int maior = notas[0];
     for (int i = 1; i < tam; i++) {
@@ -26,6 +35,10 @@ float encontraMaiorNota(float notas[], int tam){
     return maior;
 }
 
+/*Descrição: o procedimento exibe o quanto equivale os valores (em %) do vetor usando de referencia a maior nota
+Entrada: notas (float), tam (inteiro), maiorNota (float)
+Saida: 
+*/
 void exibePercentuais(float notas[], int tam, float maiorNota){
     float percent;
     for (int i = 0; i < tam; i++) {
