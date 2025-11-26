@@ -5,6 +5,12 @@
 #define MAX_CLIENTES 1000
 #define MAX_FUNCIONARIOS 1000
 
+int totalQuartos = 0;
+int totalClientes = 0;
+int totalFuncionarios = 0;
+
+using namespace std;
+
 class Quarto {
 protected:
     int numDoQuarto;
@@ -72,7 +78,20 @@ public:
     Cliente();
 
     //Construtor parametrizado
-    Cliente (int cod, char *name, char *address, char *cell);
+    Cliente (int cod, char *name, char *address, char *cell) {
+        if (cod > -1) {
+            id = cod;
+        }
+        if (strlen(name) > 0) {
+            strcpy(nome, name);
+        }
+        if (strlen(address) > 0) {
+            strcpy(endereco, address);
+        }
+        if (strlen(cell) > 0) {
+            strcpy(telefone, cell);
+        }
+    }
 
     //Setters e Getters
     void setId(int cod);
@@ -92,17 +111,53 @@ public:
     void excluirDados(int n);
 };
 
-class Funcionario : public Cliente{
+class Funcionario {
 protected:
+    int id;
+    char nome[50];
+    char endereco[100];
+    char telefone[14];
     char cargo[50];
     float salario;
 public:
     //Construtor padrão
-    Funcionario();
+    Funcionario(){
+        
+    }
 
     //Construtor parametrizado
-    Funcionario(char *cod, char *n, char *adress, char *cell, char *role, float pay);
+    Funcionario(int cod, char *n, char *adress, char *cell, char *role, float pay) {
+        if (cod > -1) {
+            id = cod;
+        }
+        if (strlen(name) > 0) {
+            strcpy(nome, name);
+        }
+        if (strlen(address) > 0) {
+            strcpy(endereco, address);
+        }
+        if (strlen(cell) > 0) {
+            strcpy(telefone, cell);
+        }
+        if (strlen(role) > 0) {
+            strcpy(cargo, role);
+        }
+        if (pay > 0.0) {
+            salario = pay;
+        }
+    }
 
+    void setId(int cod);
+    void setNome(char *name);
+    void setEndereco(char *address);
+    void setTelefone(char *cell);
+
+    int getId() { return id; }
+    char *getNome() { return nome; }
+    char *getEndereco() { return endereco; }
+    char *getTelefone() { return telefone; }
+    char *getCargo() { return cargo; }
+    float getSalario() { return salario; }
 
 };
 
@@ -116,10 +171,61 @@ protected:
     int *numQuarto;
 };
 
-void salvarBackup();
-void carregarBackup();
+//Procedimentos para backup e restauração de dados
+void salvarBackup() {
+    FILE *fp;
 
-using namespace std;
+    fp = fopen("quartos.dat", "wb");
+    if (!fp) { cout << "Erro ao salvar quartos.\n"; return; }
+    for (int i = 0; i < totalQuartos; i++)
+        fwrite(&listaQuartos[i], sizeof(Local), 1, fp);
+    fclose(fp);
+
+    fp = fopen("clientes.dat", "wb");
+    if (!fp) { cout << "Erro ao salvar clientes.\n"; return; }
+    for (int i = 0; i < totalClientes; i++)
+        fwrite(&listaClientes[i], sizeof(Cliente), 1, fp);
+    fclose(fp);
+
+    fp = fopen("funcionarios.dat", "wb");
+    if (!fp) { cout << "Erro ao salvar funcionarios.\n"; return; }
+    for (int i = 0; i < totalFuncionarios; i++)
+        fwrite(&listafunciorios[i], sizeof(Funcionario), 1, fp);
+    fclose(fp);
+    cout << "Backup de dados realizado com sucesso\n";
+}
+void carregarBackup() {
+    FILE *fp;
+
+    // Limpa as listas antes de carregar o backup
+    totalQuartos = 0;
+    totalClientes = 0;
+    totalFuncionarios = 0;
+
+    fp = fopen("quartos.dat", "rb");
+    if (fp) {
+        while (fread(&listaQuarto[totalQuartos], sizeof(Quarto), 1, fp))
+            totalQuartos++;
+        fclose(fp);
+    }
+
+    fp = fopen("clientes.dat", "rb");
+    if (fp) {
+        while (fread(&listaCliente[totalClientes], sizeof(Cliente), 1, fp))
+            totalClientes++;
+        fclose(fp);
+    }
+
+    fp = fopen("funcionarios.dat", "rb");
+    if (fp) {
+        while (fread(&listaFuncionario[totalFuncionarios], sizeof(Funcionario), 1, fp))
+            totalFuncionarios++;
+        fclose(fp);
+    }
+    cout << "Dados recuperados com sucesso\n";
+}
+
+
 
 int main(){
     int optMenu, optSubMenu;
