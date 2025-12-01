@@ -1,14 +1,18 @@
 #include <iostream>
 #include <cstdio>   
-#include <cstring>  
+#include <cstring> 
+
+//Constantes globais 
 #define MAX_QUARTOS 1000
 #define MAX_CLIENTES 1000
 #define MAX_FUNCIONARIOS 1000
+#define MAX_ESTADIAS 1000
 
 int totalQuartos = 0;
 int totalClientes = 0;
 int totalFuncionarios = 0;
-
+int totalEstadias = 0;
+//Para cin e cout sem precisar de "std::"
 using namespace std;
 
 class Quarto {
@@ -207,7 +211,7 @@ public:
     int getDataEntrada() { return dataEntrada; }
     int getDataSaida() { return dataSaida; }
     int getQtdDiarias() { return qtdDiarias; }    
-    int getIdCliente() { return *reinterpret_cast<int*>(idCliente); }
+    int getIdCliente() { return *idCliente; }
     int getNumQuarto() { return *numQuarto; }
 };
 
@@ -504,15 +508,18 @@ void atualizarFuncionario() {
 
             cout << "Telefone atual: " << listaFuncionarios[i].getTelefone() << "\nNovo telefone: ";
             cin.getline(telefone, 18);
-            if (strlen(telefone) > 0) listaFuncionarios[i].setTelefone(telefone);
+            if (strlen(telefone) > 0) 
+                listaFuncionarios[i].setTelefone(telefone);
 
             cout << "Cargo atual: " << listaFuncionarios[i].getCargo() << "\nNovo cargo: ";
             cin.getline(cargo, 50);
-            if (strlen(cargo) > 0) listaFuncionarios[i].setCargo(cargo);
+            if (strlen(cargo) > 0) 
+                listaFuncionarios[i].setCargo(cargo);
 
             cout << "Salario atual: R$" << listaFuncionarios[i].getSalario() << "\nNovo salario (0 para manter): ";
             if (cin >> salario) {
-                if (salario > 0.0f) listaFuncionarios[i].setSalario(salario);
+                if (salario > 0.0f) 
+                    listaFuncionarios[i].setSalario(salario);
             }
             cin.ignore();
 
@@ -579,9 +586,9 @@ void cadastrarEstadia() {
         return;
     }
 
-    cout << "Data de entrada (DDMMAAAA): ";
+    cout << "Data de entrada (DDMM): ";
     cin >> dataEntrada;
-    cout << "Data de saida (DDMMAAAA): ";
+    cout << "Data de saida (DDMM): ";
     cin >> dataSaida;
 
     if (dataSaida <= dataEntrada) {
@@ -637,17 +644,17 @@ void cadastrarEstadia() {
     sprintf(cod, "EST%d%d", idCliente, dataEntrada);
 
     // Cadastrar estadia
-    listaEstadias[totalClientes].setCod(cod);
-    listaEstadias[totalClientes].setDataEntrada(dataEntrada);
-    listaEstadias[totalClientes].setDataSaida(dataSaida);
-    listaEstadias[totalClientes].setQtdDiarias(qtdDiarias);
-    listaEstadias[totalClientes].setIdCliente(idCliente);
-    listaEstadias[totalClientes].setNumQuarto(listaQuartos[indiceQuarto].getNumDoQuarto());
+    listaEstadias[totalEstadias].setCod(cod);
+    listaEstadias[totalEstadias].setDataEntrada(dataEntrada);
+    listaEstadias[totalEstadias].setDataSaida(dataSaida);
+    listaEstadias[totalEstadias].setQtdDiarias(qtdDiarias);
+    listaEstadias[totalEstadias].setIdCliente(idCliente);
+    listaEstadias[totalEstadias].setNumQuarto(listaQuartos[indiceQuarto].getNumDoQuarto());
 
     // Atualizar status do quarto
     listaQuartos[indiceQuarto].setStatus("Ocupado");
 
-    totalClientes++;
+    totalEstadias++;
     cout << "\nEstadia cadastrada com sucesso!\n";
     cout << "Codigo da estadia: " << cod << "\n";
     cout << "Quarto atribuido: " << listaQuartos[indiceQuarto].getNumDoQuarto() << "\n";
@@ -657,12 +664,12 @@ void cadastrarEstadia() {
 }
 
 void listarEstadias() {
-    if (totalClientes == 0) {
+    if (totalEstadias == 0) {
         cout << "Nenhuma estadia cadastrada.\n";
         return;
     }
     cout << "\n---Lista de Estadias---\n";
-    for (int i = 0; i < totalClientes; i++) {
+    for (int i = 0; i < totalEstadias; i++) {
         cout << "Estadia " << (i+1) << ": Codigo " << listaEstadias[i].getCod()
              << " | Cliente ID: " << listaEstadias[i].getIdCliente()
              << " | Quarto: " << listaEstadias[i].getNumQuarto()
@@ -678,7 +685,7 @@ void pesquisarEstadia() {
     cin >> idCliente;
 
     int encontrado = 0;
-    for (int i = 0; i < totalClientes; i++) {
+    for (int i = 0; i < totalEstadias; i++) {
         if (listaEstadias[i].getIdCliente() == idCliente) {
             cout << "Estadia encontrada!\n";
             cout << "Codigo: " << listaEstadias[i].getCod()
@@ -700,27 +707,96 @@ void excluirEstadia() {
     cin.ignore();
     cin.getline(cod, 15);
 
-    for (int i = 0; i < totalClientes; i++) {
+    for (int i = 0; i < totalEstadias; i++) {
         if (strcmp(listaEstadias[i].getCod(), cod) == 0) {
             // Liberar quarto
             int numQuarto = listaEstadias[i].getNumQuarto();
-            for (int j = 0; j < totalQuartos; j++) {
+            for (int j = 0; j < totalEstadias; j++) {
                 if (listaQuartos[j].getNumDoQuarto() == numQuarto) {
                     listaQuartos[j].setStatus("Desocupado");
                     break;
                 }
             }
-
             // Remover estadia
-            for (int j = i; j < totalClientes - 1; j++) {
+            for (int j = i; j < totalEstadias - 1; j++) {
                 listaEstadias[j] = listaEstadias[j + 1];
             }
-            totalClientes--;
+            totalEstadias--;
             cout << "Estadia excluida com sucesso!\n";
             return;
         }
     }
     cout << "Estadia nao encontrada.\n";
+}
+//Salva as clases em arquivos separados pra cada uma
+void salvarBackup() {
+    FILE *fp;
+
+    fp = fopen("quartos.dat", "wb");
+    if (!fp) { cout << "Erro ao salvar quartos.\n"; return; }
+    for (int i = 0; i < totalQuartos; i++)
+        fwrite(&listaQuartos[i], sizeof(Quarto), 1, fp);
+    fclose(fp);
+
+    fp = fopen("clientes.dat", "wb");
+    if (!fp) { cout << "Erro ao salvar clientes.\n"; return; }
+    for (int i = 0; i < totalClientes; i++)
+        fwrite(&listaClientes[i], sizeof(Cliente), 1, fp);
+    fclose(fp);
+
+    fp = fopen("funcionarios.dat", "wb");
+    if (!fp) { cout << "Erro ao salvar funcionarios.\n"; return; }
+    for (int i = 0; i < totalFuncionarios; i++)
+        fwrite(&listaFuncionarios[i], sizeof(Funcionario), 1, fp);
+    fclose(fp);
+
+    fp = fopen("reservas.dat", "wb");
+    if (!fp) { cout << "Erro ao salvar reservas.\n"; return; }
+    for (int i = 0; i < totalEstadias; i++)
+        fwrite(&listaEstadias[i], sizeof(Estadia), 1, fp);
+    fclose(fp);
+
+    cout << "Backup salvo com sucesso.\n";
+}
+
+// Carrega os dados dos arquivos binários para as listas, limpando as listas antes de carregar o backup
+void carregarBackup() {
+    FILE *fp;
+
+    // Limpa as listas antes de carregar o backup
+    totalQuartos = 0;
+    totalClientes = 0;
+    totalFuncionarios = 0;
+    totalEstadias = 0;
+
+    fp = fopen("quartos.dat", "rb");
+    if (fp) {
+        while (fread(&listaQuartos[totalQuartos], sizeof(Quarto), 1, fp))
+            totalQuartos++;
+        fclose(fp);
+    }
+
+    fp = fopen("clientes.dat", "rb");
+    if (fp) {
+        while (fread(&listaClientes[totalClientes], sizeof(Cliente), 1, fp))
+            totalClientes++;
+        fclose(fp);
+    }
+
+    fp = fopen("funcionarios.dat", "rb");
+    if (fp) {
+        while (fread(&listaFuncionarios[totalFuncionarios], sizeof(Funcionario), 1, fp))
+            totalFuncionarios++;
+        fclose(fp);
+    }
+
+    fp = fopen("reservas.dat", "rb");
+    if (fp) {
+        while (fread(&listaEstadias[totalEstadias], sizeof(Estadia), 1, fp))
+            totalEstadias++;
+        fclose(fp);
+    }
+    cout << "Backup restaurado com sucesso.\n";
 }
 
 int main(){
@@ -843,8 +919,9 @@ int main(){
                             break;
                         case 5: excluirFuncionario(); 
                             break;
-                        case 0: break;
-                        default: cout << "Opcao nao implementada ainda.\n"; break;
+                        case 0: 
+                            break;
+                        default: cout << "Opcao invalida.\n"; break;
                     }
                 } while (optSubMenu != 0);
                 break;
