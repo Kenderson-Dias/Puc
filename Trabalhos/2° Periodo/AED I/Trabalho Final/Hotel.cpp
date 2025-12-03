@@ -551,6 +551,18 @@ void excluirFuncionario() {
     cout << "Funcionario nao encontrado.\n";
 }
 
+// Verifica se o ano é bissexto
+bool ehBissexto(int ano) {
+    return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
+}
+
+// Retorna quantos dias tem o mês naquele ano específico
+int getDiasNoMes(int mes, int ano) {
+    int dias[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (mes == 2 && ehBissexto(ano)) return 29;
+    return dias[mes];
+}
+
 // Procedimentos de Estadia
 void cadastrarEstadia() {
     if (totalClientes == 0) {
@@ -562,7 +574,7 @@ void cadastrarEstadia() {
         return;
     }
 
-    int idCliente, qtdHospedes, dataEntrada, dataSaida;
+    int idCliente, qtdHospedes;
     cout << "ID do cliente: ";
     cin >> idCliente;
 
@@ -586,22 +598,53 @@ void cadastrarEstadia() {
         return;
     }
 
-    cout << "Data de entrada (DDMM): ";
-    cin >> dataEntrada;
-    cout << "Data de saida (DDMM): ";
-    cin >> dataSaida;
+    int dEnt, mEnt, aEnt;
+    int dSai, mSai, aSai;
 
-    if (dataSaida <= dataEntrada) {
-        cout << "Data de saida deve ser maior que data de entrada.\n";
+    cout << "Data de Entrada:\n";
+    cout << "Dia: "; cin >> dEnt;
+    cout << "Mes: "; cin >> mEnt;
+    cout << "Ano: "; cin >> aEnt;
+
+    cout << "Data de Saida:\n";
+    cout << "Dia: "; cin >> dSai;
+    cout << "Mes: "; cin >> mSai;
+    cout << "Ano: "; cin >> aSai;
+
+    // Validações de dia/mês
+    if (mEnt < 1 || mEnt > 12 || dEnt < 1 || dEnt > getDiasNoMes(mEnt, aEnt)) {
+        cout << "Data de entrada invalida.\n"; return;
+    }
+    if (mSai < 1 || mSai > 12 || dSai < 1 || dSai > getDiasNoMes(mSai, aSai)) {
+        cout << "Data de saida invalida.\n"; return;
+    }
+
+    long dataEntradaComp = aEnt * 10000 + mEnt * 100 + dEnt;
+    long dataSaidaComp = aSai * 10000 + mSai * 100 + dSai;
+
+    if (dataSaidaComp <= dataEntradaComp) {
+        cout << "Erro: A data de saida deve ser posterior a data de entrada.\n";
         return;
     }
 
-    // Calcular quantidade de diarias
-    int diaEntrada = dataEntrada / 100;
-    int diaSaida = dataSaida / 100;
-    int qtdDiarias = diaSaida - diaEntrada;
+    int qtdDiarias = 0;
+    int dTemp = dEnt, mTemp = mEnt, aTemp = aEnt;
 
-    // Listar quartos disponíveis com capacidade suficiente
+    // Loop que conta os dias exatos
+    while (dTemp != dSai || mTemp != mSai || aTemp != aSai) {
+        qtdDiarias++;
+        dTemp++;
+        if (dTemp > getDiasNoMes(mTemp, aTemp)) {
+            dTemp = 1;
+            mTemp++;
+            if (mTemp > 12) {
+                mTemp = 1;
+                aTemp++;
+            }
+        }
+    }
+
+    // Listar quartos disponíveis
     cout << "\n---Quartos Disponiveis---\n";
     int quartosDisponiveis = 0;
     for (int i = 0; i < totalQuartos; i++) {
@@ -620,12 +663,10 @@ void cadastrarEstadia() {
         return;
     }
 
-    // Selecionar quarto
     int numQuartoEscolhido;
     cout << "\nDigite o numero do quarto desejado: ";
     cin >> numQuartoEscolhido;
 
-    // Encontrar e validar quarto escolhido
     int indiceQuarto = -1;
     for (int i = 0; i < totalQuartos; i++) {
         if (listaQuartos[i].getNumDoQuarto() == numQuartoEscolhido &&
@@ -641,28 +682,27 @@ void cadastrarEstadia() {
         return;
     }
 
-    // Criar codigo da estadia
     char cod[15];
-    sprintf(cod, "EST%d%d", idCliente, dataEntrada);
+    sprintf(cod, "EST%d%d", idCliente, dEnt); 
 
-    // Cadastrar estadia
+    int dataEntradaSalvar = (dEnt * 1000000) + (mEnt * 10000) + aEnt;
+    int dataSaidaSalvar = (dSai * 1000000) + (mSai * 10000) + aSai;
+
     listaEstadias[totalEstadias].setCod(cod);
-    listaEstadias[totalEstadias].setDataEntrada(dataEntrada);
-    listaEstadias[totalEstadias].setDataSaida(dataSaida);
+    listaEstadias[totalEstadias].setDataEntrada(dataEntradaSalvar);
+    listaEstadias[totalEstadias].setDataSaida(dataSaidaSalvar);
     listaEstadias[totalEstadias].setQtdDiarias(qtdDiarias);
     listaEstadias[totalEstadias].setIdCliente(idCliente);
     listaEstadias[totalEstadias].setNumQuarto(listaQuartos[indiceQuarto].getNumDoQuarto());
 
-    // Atualizar status do quarto
     listaQuartos[indiceQuarto].setStatus("Ocupado");
 
     totalEstadias++;
     cout << "\nEstadia cadastrada com sucesso!\n";
-    cout << "Codigo da estadia: " << cod << "\n";
-    cout << "Quarto atribuido: " << listaQuartos[indiceQuarto].getNumDoQuarto() << "\n";
-    cout << "Valor da diaria: R$" << listaQuartos[indiceQuarto].getValorDiaria() << "\n";
-    cout << "Quantidade de diarias: " << qtdDiarias << "\n";
-    cout << "Valor total: R$" << (listaQuartos[indiceQuarto].getValorDiaria() * qtdDiarias) << "\n";
+    cout << "Codigo: " << cod << "\n";
+    cout << "Quarto: " << listaQuartos[indiceQuarto].getNumDoQuarto() << "\n";
+    cout << "Total de Diarias: " << qtdDiarias << "\n";
+    cout << "Valor Total: R$" << (listaQuartos[indiceQuarto].getValorDiaria() * qtdDiarias) << "\n";
 }
 
 void listarEstadias() {
