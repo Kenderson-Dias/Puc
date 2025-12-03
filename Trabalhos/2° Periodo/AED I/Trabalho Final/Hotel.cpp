@@ -12,9 +12,10 @@ int totalQuartos = 0;
 int totalClientes = 0;
 int totalFuncionarios = 0;
 int totalEstadias = 0;
+
 //Para cin e cout sem precisar de "std::"
 using namespace std;
-
+ 
 class Quarto {
 protected:
     int numDoQuarto;
@@ -229,8 +230,29 @@ void cadastrarQuarto() {
     }
     int num, qtd;
     float valor;
-    cout << "Numero do quarto: ";
-    cin >> num;
+    
+    bool numValido = false;
+    do {
+        cout << "Numero do quarto: ";
+        cin >> num;
+        if (num < 0) {
+            cout << "Numero invalido! Digite um valor nao negativo.\n";
+        } else {
+            bool existe = false;
+            for (int i = 0; i < totalQuartos; i++) {
+                if (listaQuartos[i].getNumDoQuarto() == num) {
+                    existe = true;
+                    break;
+                }
+            }
+            if (existe) {
+                cout << "Numero de quarto ja existe! Tente outro.\n";
+            } else {
+                numValido = true;
+            }
+        }
+    } while (!numValido);
+
     cout << "Quantidade de hospedes: ";
     cin >> qtd;
     cout << "Valor da diaria: ";
@@ -322,8 +344,29 @@ void cadastrarCliente() {
     }
     int id;
     char nome[50], endereco[100], telefone[18];
-    cout << "ID do cliente: ";
-    cin >> id;
+    
+    bool idValido = false;
+    do {
+        cout << "ID do cliente: ";
+        cin >> id;
+        if (id < 0) {
+            cout << "ID invalido! Digite um valor nao negativo.\n";
+        } else {
+            bool existe = false;
+            for (int i = 0; i < totalClientes; i++) {
+                if (listaClientes[i].getId() == id) {
+                    existe = true;
+                    break;
+                }
+            }
+            if (existe) {
+                cout << "ID ja existe! Tente outro.\n";
+            } else {
+                idValido = true;
+            }
+        }
+    } while (!idValido);
+
     cin.ignore();
     cout << "Nome: ";
     cin.getline(nome, 50);
@@ -421,8 +464,29 @@ void cadastrarFuncionario() {
     int id;
     float salario;
     char nome[50], endereco[100], telefone[18], cargo[50];
-    cout << "ID do funcionario: ";
-    cin >> id;
+    
+    bool idValido = false;
+    do {
+        cout << "ID do funcionario: ";
+        cin >> id;
+        if (id < 0) {
+            cout << "ID invalido! Digite um valor nao negativo.\n";
+        } else {
+            bool existe = false;
+            for (int i = 0; i < totalFuncionarios; i++) {
+                if (listaFuncionarios[i].getId() == id) {
+                    existe = true;
+                    break;
+                }
+            }
+            if (existe) {
+                cout << "ID ja existe! Tente outro.\n";
+            } else {
+                idValido = true;
+            }
+        }
+    } while (!idValido);
+
     cin.ignore();
     cout << "Nome: ";
     cin.getline(nome, 50);
@@ -598,29 +662,29 @@ void cadastrarEstadia() {
         return;
     }
 
-    int dEnt, mEnt, aEnt;
-    int dSai, mSai, aSai;
+    int diaEnt, mesEnt, anoEnt;
+    int diaSai, mesSai, anoSai;
 
     cout << "Data de Entrada:\n";
-    cout << "Dia: "; cin >> dEnt;
-    cout << "Mes: "; cin >> mEnt;
-    cout << "Ano: "; cin >> aEnt;
+    cout << "Dia: "; cin >> diaEnt;
+    cout << "Mes: "; cin >> mesEnt;
+    cout << "Ano: "; cin >> anoEnt;
 
     cout << "Data de Saida:\n";
-    cout << "Dia: "; cin >> dSai;
-    cout << "Mes: "; cin >> mSai;
-    cout << "Ano: "; cin >> aSai;
+    cout << "Dia: "; cin >> diaSai;
+    cout << "Mes: "; cin >> mesSai;
+    cout << "Ano: "; cin >> anoSai;
 
     // Validações de dia/mês
-    if (mEnt < 1 || mEnt > 12 || dEnt < 1 || dEnt > getDiasNoMes(mEnt, aEnt)) {
+    if (mesEnt < 1 || mesEnt > 12 || diaEnt < 1 || diaEnt > getDiasNoMes(mesEnt, anoEnt)) {
         cout << "Data de entrada invalida.\n"; return;
     }
-    if (mSai < 1 || mSai > 12 || dSai < 1 || dSai > getDiasNoMes(mSai, aSai)) {
+    if (mesSai < 1 || mesSai > 12 || diaSai < 1 || diaSai > getDiasNoMes(mesSai, anoSai)) {
         cout << "Data de saida invalida.\n"; return;
     }
 
-    long dataEntradaComp = aEnt * 10000 + mEnt * 100 + dEnt;
-    long dataSaidaComp = aSai * 10000 + mSai * 100 + dSai;
+    long dataEntradaComp = anoEnt * 10000 + mesEnt * 100 + diaEnt;
+    long dataSaidaComp = anoSai * 10000 + mesSai * 100 + diaSai;
 
     if (dataSaidaComp <= dataEntradaComp) {
         cout << "Erro: A data de saida deve ser posterior a data de entrada.\n";
@@ -628,10 +692,10 @@ void cadastrarEstadia() {
     }
 
     int qtdDiarias = 0;
-    int dTemp = dEnt, mTemp = mEnt, aTemp = aEnt;
+    int dTemp = diaEnt, mTemp = mesEnt, aTemp = anoEnt;
 
     // Loop que conta os dias exatos
-    while (dTemp != dSai || mTemp != mSai || aTemp != aSai) {
+    while (dTemp != diaSai || mTemp != mesSai || aTemp != anoSai) {
         qtdDiarias++;
         dTemp++;
         if (dTemp > getDiasNoMes(mTemp, aTemp)) {
@@ -683,10 +747,10 @@ void cadastrarEstadia() {
     }
 
     char cod[15];
-    sprintf(cod, "EST%d%d", idCliente, dEnt); 
+    sprintf(cod, "EST%d%d", idCliente, diaEnt); 
 
-    int dataEntradaSalvar = (dEnt * 1000000) + (mEnt * 10000) + aEnt;
-    int dataSaidaSalvar = (dSai * 1000000) + (mSai * 10000) + aSai;
+    int dataEntradaSalvar = (diaEnt * 1000000) + (mesEnt * 10000) + anoEnt;
+    int dataSaidaSalvar = (diaSai * 1000000) + (mesSai * 10000) + anoSai;
 
     listaEstadias[totalEstadias].setCod(cod);
     listaEstadias[totalEstadias].setDataEntrada(dataEntradaSalvar);
