@@ -597,7 +597,9 @@ void cadastrarEstadia() {
     }
 
     // Calcular quantidade de diarias
-    int qtdDiarias = dataSaida - dataEntrada;
+    int diaEntrada = dataEntrada / 100;
+    int diaSaida = dataSaida / 100;
+    int qtdDiarias = diaSaida - diaEntrada;
 
     // Listar quartos disponíveis com capacidade suficiente
     cout << "\n---Quartos Disponiveis---\n";
