@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /*Uma empresa vende o mesmo produto para quatro estados diferentes. Cada estado possui
 uma alíquota de imposto sobre o produto. Escreva um programa em que o usuário insira o valor
