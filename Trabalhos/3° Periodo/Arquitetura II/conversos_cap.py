@@ -3,7 +3,7 @@ import sys
 import os
 
 MNEMONICOS = {
-    "COPAIA":  0x0,  "COPIAB":  0x1,  "AXB":     0x2,  "NAXNB":   0x3,
+    "COPIAA":  0x0,  "COPIAB":  0x1,  "AXB":     0x2,  "NAXNB":   0x3,
     "AEBN":    0x4,  "NB":      0x5,  "NAONB":   0x6,  "NA":      0x7,
     "AONB":    0x8,  "UML":     0x9,  "ZEROL":   0xA,  "AEB":     0xB,
     "NAEB":    0xC,  "AENB":    0xD,  "AOB":     0xE,  "NAENB":   0xF,
