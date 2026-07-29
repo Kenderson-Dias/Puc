@@ -1,3 +1,8 @@
+# O projeto le um arquivo .Ula e resulta na geração de um novo arquivo .hex
+# Os valores lidos inicialmente do arquivo agora em formatados em um código reescrito em hexadecimal 
+# Os valores serão inseridos posteriormente em um circuto montado na plataforma Tinkercad 
+# Link do projeto: https://www.tinkercad.com/things/kOhXCaF2mzK-copy-of-copy-of-placalab01
+
 
 import sys
 import os
