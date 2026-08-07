@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1754519514 source:c:\temp\kenderson\main.c
+	<stdio.h>
+	<stdlib.h>
+
