@@ -33,22 +33,28 @@ def converter(arquivo_ula, arquivo_hex):
     with open(arquivo_ula, 'r', encoding='utf-8') as f:
         linhas = f.readlines()
 
-    # Como o arquivo pode ter milhares de linhas, controlamos o spam no console
     arquivo_grande = len(linhas) > 100
 
     for numero, linha in enumerate(linhas, start=1):
-        # 1. Substitui ponto-e-vírgula e ponto por ESPAÇOS.
-        # Isso desgruda os comandos. Ex: "W=AxB;X=2" vira "W=AxB X=2"
-        linha_limpa = linha.replace(';', ' ').replace('.', ' ')
-        
-        # 2. Fatiamos a linha por espaços. Cada pedaço é um "token".
-        tokens = linha_limpa.split()
+        linha_strip = linha.strip()
 
-        # Se a linha for vazia (ou só tiver espaços), o split() gera uma lista vazia.
-        if not tokens:
+        if not linha_strip:
+            print(f"[ERRO] Linha {numero} está vazia.")
             continue
 
-        # 3. Processamos comando por comando, isoladamente
+        token_simples = linha_strip.lower().replace(':', '').replace('.', '')
+        if token_simples in ('inicio', 'fim'):
+            if token_simples == 'inicio': encontrou_inicio = True
+            if token_simples == 'fim': encontrou_fim = True
+            continue
+
+        if ';' not in linha:
+            print(f"[ERRO] Linha {numero} não contém ';'.")
+            continue
+
+        linha_limpa = linha.replace(';', ' ').replace('.', ' ')
+        tokens = linha_limpa.split()
+        
         for token in tokens:
             token_lower = token.lower()
 
@@ -92,21 +98,18 @@ def converter(arquivo_ula, arquivo_hex):
                         instr = nibble_hex(x_atual) + nibble_hex(y_atual) + nibble_hex(s)
                         instrucoes_hex.append(instr)
                         
-                        # Evita poluir o terminal se o arquivo for gigante (como o TESTEULA)
                         if not arquivo_grande:
                             print(f"  Linha {numero}: W = {val} -> {instr} (X={x_atual:X}, Y={y_atual:X}, S={s:X})")
                     else:
                         print(f"  [AVISO] Mnemonico desconhecido (Linha {numero}): '{val}'")
                     continue
 
-    # VALIDAÇÃO FINAL DE ESTRUTURA
     if not encontrou_inicio: 
         return
 
     if not encontrou_fim:
         return
     
-    # Grava o arquivo .hex
     with open(arquivo_hex, 'w', encoding='utf-8') as f:
         for instr in instrucoes_hex:
             f.write(instr + '\n')
